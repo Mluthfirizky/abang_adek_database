@@ -115,6 +115,9 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.login .container{
+  padding: 0 !important;
+}
 .left div{
   padding: 50px 40px 38px 45px;
   display: flex;
