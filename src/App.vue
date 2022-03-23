@@ -1,32 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <navbar v-if="this.$route.name != 'Register' && this.$route.name != 'Login'"/>
+    <router-view :class="this.$route.name != 'Register' && this.$route.name != 'Login' ? 'view' : ''"/>
   </div>
 </template>
 
+<script>
+import Navbar from './components/Navbar.vue'
+
+export default {
+  components: {
+    Navbar 
+  }
+}
+</script>
+
 <style>
-#app {
+*{
+  margin: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-#nav {
-  padding: 30px;
+body{
+  background-color: #F2F2F2 !important;
+  overflow-x: hidden;
 }
+a{
+  text-decoration: none !important;
+  
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.view{
+  margin-left: 80px;
+  transition: 0.3s;
+}
+@media (max-width: 888px){
+  .view{
+  margin-left: 0px;
+}
 }
 </style>
