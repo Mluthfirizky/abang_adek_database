@@ -107,7 +107,7 @@
         <div class="button-3">
           <el-button @click="editData" type="warning" plain>Edit</el-button>
           <el-button @click="deleteData" type="danger" plain>Delete</el-button>
-          <el-button class="terjual" @click="terjualData" type="success" plain
+          <el-button v-if="collection == 'mobil'" class="terjual" @click="terjualData" type="success" plain
             >Terjual</el-button
           >
         </div>
@@ -217,7 +217,7 @@ export default {
         }
       )
         .then(() => {
-          db.collection("mobil")
+          db.collection(this.collection)
             .doc(this.$route.params.plat)
             .get()
             .then((querySnapShot) => {
@@ -286,7 +286,7 @@ export default {
   padding: 20px 40px;
 }
 .mobil-data .info {
-  padding: 120px 0 35px 40px;
+  padding: 120px 0 0px 40px;
   flex: 1;
 }
 .mobil-data .info ul {
