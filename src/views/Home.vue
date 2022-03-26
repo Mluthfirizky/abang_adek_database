@@ -20,7 +20,6 @@
   </nav>
     <stock v-if="page == false" class="dashboard"/>
     <terjual v-else class="dashboard"/>
-    {{$store.getters.search}}
     <div @click="addBtn" class="add"><i class="fa-solid fa-plus"></i></div>
   </div>
 </template>
