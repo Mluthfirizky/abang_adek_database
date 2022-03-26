@@ -54,12 +54,18 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="surat" label="Surat-Surat">
-              <el-input
-                placeholder="Surat"
-                v-model="currentData.dataMobil.surat"
-              ></el-input>
-            </el-form-item>
+            <el-form-item prop="surat" label="surat-surat">
+        <div class="upload formUpload">
+          <el-button class="" @click="onPickFile('suratImage')" type="primary"
+            >Upload<i class="el-icon-upload el-icon-right"></i
+          ></el-button>
+          <div>
+            <img v-if="currentData.dataMobil.surat" :src="currentData.dataMobil.surat" alt="" class="preview" />
+            <h3 v-if="currentData.dataMobil.surat"></h3>
+          </div>
+          <h1 @click="cancel('currentData','dataMobil', 'surat')" class="cancel" v-if="currentData.dataMobil.surat">X</h1>
+        </div>
+        </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item prop="tahun" label="Tahun">
@@ -147,7 +153,7 @@
                     <div>
                       <img v-if="currentData.dataPenjual.ktp" :src="currentData.dataPenjual.ktp" alt="" class="preview" />
                     </div>
-                    <h1 @click="cancel(currentData.dataPenjual.ktp)" class="cancel" v-if="currentData.dataPenjual.ktp">X</h1>
+                    <h1 @click="cancel('currentData','dataPenjual','ktp')" class="cancel" v-if="currentData.dataPenjual.ktp">X</h1>
                   </div>
               </el-form-item>
             </el-col>
@@ -218,7 +224,7 @@
                     <div>
                       <img v-if="currentData.dataPembeli.ktp != null" :src="currentData.dataPembeli.ktp" alt="" class="preview" />
                     </div>
-                    <h1 @click="cancel(currentData.dataPembeli.ktp)" class="cancel" v-if="currentData.dataPembeli.ktp != null">X</h1>
+                    <h1 @click="cancel('currentData','dataPembeli','ktp')" class="cancel" v-if="currentData.dataPembeli.ktp != null">X</h1>
                   </div>
               </el-form-item>
             </el-col>
@@ -255,7 +261,7 @@
             <h3 v-if="currentData.image"></h3>
             <h3 v-else class="uploadImage">Upload Image</h3>
           </div>
-          <h1 @click="cancel(currentData.image)" class="cancel" v-if="currentData.image">X</h1>
+          <h1 @click="cancel('currentData','image', undefined)" class="cancel" v-if="currentData.image">X</h1>
         </div>
         </el-form-item>
         <div>
@@ -276,6 +282,15 @@
         style="display: none"
         ref="imageInput"
         @change="fileSelected"
+        accept="image/*"
+      />
+
+      <input
+        prop="image"
+        type="file"
+        style="display: none"
+        ref="imageInput"
+        @change="imageSurat"
         accept="image/*"
       />
 
@@ -395,6 +410,21 @@ export default {
         });
       }
     },
+    imageSurat(event) {
+      if (event.target.files[0].size < 1040000) {
+        const fileReader = new FileReader();
+        fileReader.addEventListener("load", () => {
+          this.currentData.dataMobil.surat = fileReader.result;
+        });
+        fileReader.readAsDataURL(event.target.files[0]);
+        // console.log(URL.createObjectURL(event.target.files[0]))
+      } else {
+        this.$message({
+          message: "Ukuran gambar terlalu besar!",
+          type: "error",
+        });
+      }
+    },
     fileSelected(event) {
       const fileReader = new FileReader();
       fileReader.addEventListener("load", () => {
@@ -404,13 +434,12 @@ export default {
       //  this.selectedImage = URL.createObjectURL(event.target.files[0])
       this.link = event;
     },
-    cancel(target) {
-      if(target == this.currentData.image){
-        this.currentData.image = null
-      }else if(target == this.currentData.dataPenjual.ktp){
-        this.currentData.dataPenjual.ktp = null
-      }else if(target == this.currentData.dataPembeli.ktp){
-        this.currentData.dataPembeli.ktp = null
+    cancel(mainProp, childProp, child2) {
+      // this[test] = null // isi Barang
+      if(child2 != undefined){
+      this[mainProp][childProp][child2] = null
+      }else{
+        this[mainProp][childProp] = null
       }
     },
     onUpload() {},

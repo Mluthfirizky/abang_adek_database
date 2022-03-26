@@ -54,10 +54,27 @@
           </el-col>
           <el-col :span="12">
             <el-form-item prop="surat" label="Surat-Surat">
-              <el-input
-                placeholder="Surat"
-                v-model="dataMobil.surat"
-              ></el-input>
+              <div class="upload formUpload">
+                <el-button @click="onPickFile('surat')" type="primary"
+                  >Upload<i class="el-icon-upload el-icon-right"></i
+                ></el-button>
+                <div>
+                  <img
+                    v-if="dataMobil.surat"
+                    :src="dataMobil.surat"
+                    alt=""
+                    class="preview"
+                  />
+                  <h3 v-if="dataMobil.surat"></h3>
+                </div>
+                <h1
+                  @click="cancel('dataMobil','surat')"
+                  class="cancel"
+                  v-if="dataMobil.surat"
+                >
+                  X
+                </h1>
+              </div>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -133,16 +150,27 @@
           <el-row :gutter="30" type="flex" class="row-bg" justify="center">
             <el-col :span="12">
               <el-form-item prop="ktp" label="KTP">
-                  <div class="upload formUpload">
-                    <el-button @click="onPickFile('ktpPenjual')" type="primary"
-                      >Upload<i class="el-icon-upload el-icon-right"></i
-                    ></el-button>
-                    <div>
-                      <img v-if="dataPenjual.ktp" :src="dataPenjual.ktp" alt="" class="preview" />
-                      <h3 v-if="image"></h3>
-                    </div>
-                    <h1 @click="cancel(dataPenjual.ktp)" class="cancel" v-if="dataPenjual.ktp">X</h1>
+                <div class="upload formUpload">
+                  <el-button @click="onPickFile('ktpPenjual')" type="primary"
+                    >Upload<i class="el-icon-upload el-icon-right"></i
+                  ></el-button>
+                  <div>
+                    <img
+                      v-if="dataPenjual.ktp"
+                      :src="dataPenjual.ktp"
+                      alt=""
+                      class="preview"
+                    />
+                    <h3 v-if="image"></h3>
                   </div>
+                  <h1
+                    @click="cancel('dataPenjual','ktp')"
+                    class="cancel"
+                    v-if="dataPenjual.ktp"
+                  >
+                    X
+                  </h1>
+                </div>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -205,16 +233,27 @@
           <el-row :gutter="30" type="flex" class="row-bg" justify="center">
             <el-col :span="12">
               <el-form-item prop="ktp" label="KTP">
-                  <div class="upload formUpload">
-                    <el-button @click="onPickFile('ktpPembeli')" type="primary"
-                      >Upload<i class="el-icon-upload el-icon-right"></i
-                    ></el-button>
-                    <div>
-                      <img v-if="dataPembeli.ktp" :src="dataPembeli.ktp" alt="" class="preview" />
-                      <h3 v-if="image"></h3>
-                    </div>
-                    <h1 @click="cancel(dataPembeli.ktp)" class="cancel" v-if="dataPembeli.ktp">X</h1>
+                <div class="upload formUpload">
+                  <el-button @click="onPickFile('ktpPembeli')" type="primary"
+                    >Upload<i class="el-icon-upload el-icon-right"></i
+                  ></el-button>
+                  <div>
+                    <img
+                      v-if="dataPembeli.ktp"
+                      :src="dataPembeli.ktp"
+                      alt=""
+                      class="preview"
+                    />
+                    <h3 v-if="image"></h3>
                   </div>
+                  <h1
+                    @click="cancel('dataPembeli', 'ktp')"
+                    class="cancel"
+                    v-if="dataPembeli.ktp"
+                  >
+                    X
+                  </h1>
+                </div>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -241,17 +280,17 @@
 
       <div class="button-content">
         <el-form-item prop="mobilImage" label="Mobil image">
-        <div class="upload">
-          <el-button class="" @click="onPickFile('imageInput')" type="primary"
-            >Upload<i class="el-icon-upload el-icon-right"></i
-          ></el-button>
-          <div>
-            <img v-if="image" :src="image" alt="" class="preview" />
-            <h3 v-if="image"></h3>
-            <h3 v-else class="uploadImage">Upload Image</h3>
+          <div class="upload">
+            <el-button class="" @click="onPickFile('imageInput')" type="primary"
+              >Upload<i class="el-icon-upload el-icon-right"></i
+            ></el-button>
+            <div>
+              <img v-if="image" :src="image" alt="" class="preview" />
+              <h3 v-if="image"></h3>
+              <h3 v-else class="uploadImage">Upload Image</h3>
+            </div>
+            <h1 @click="cancel('image', undefined)" class="cancel" v-if="image">X</h1>
           </div>
-          <h1 @click="cancel(image)" class="cancel" v-if="image">X</h1>
-        </div>
         </el-form-item>
 
         <div>
@@ -272,6 +311,15 @@
         style="display: none"
         ref="imageInput"
         @change="fileSelected"
+        accept="image/*"
+      />
+
+      <input
+        prop="image"
+        type="file"
+        style="display: none"
+        ref="surat"
+        @change="suratImage"
         accept="image/*"
       />
 
@@ -300,7 +348,7 @@
 import db from "./firebaseInit";
 export default {
   props: {
-    collection: String
+    collection: String,
   },
   data() {
     return {
@@ -380,6 +428,15 @@ export default {
     };
   },
   methods: {
+    cancel(mainProp, childProp) {
+      // this[test] = null // isi Barang
+      if(childProp != undefined){
+      this[mainProp][childProp] = null
+      console.log(this[mainProp][childProp])
+      }else{
+        this[mainProp] = null
+      }
+    },
     onPickFile(ref) {
       this.$refs[ref].click();
     },
@@ -435,15 +492,32 @@ export default {
         });
       }
     },
-    cancel(target) {
-      if(target == this.image){
-        this.image = null
-      }else if(target == this.dataPenjual.ktp){
-        this.dataPenjual.ktp = null
-      }else if(target == this.dataPembeli.ktp){
-        this.dataPembeli.ktp = null
+    suratImage(event) {
+      if (event.target.files[0].size < 1040000) {
+        const fileReader = new FileReader();
+        fileReader.addEventListener("load", () => {
+          this.dataMobil.surat = fileReader.result;
+        });
+        fileReader.readAsDataURL(event.target.files[0]);
+        // console.log(URL.createObjectURL(event.target.files[0]))
+      } else {
+        this.$message({
+          message: "Ukuran gambar terlalu besar!",
+          type: "error",
+        });
       }
     },
+    // cancel(target) {
+    //   if(target == this.image){
+    //     this.image = null
+    //   }else if(target == this.dataPenjual.ktp){
+    //     this.dataPenjual.ktp = null
+    //   }else if(target == this.dataPembeli.ktp){
+    //     this.dataPembeli.ktp = null
+    //   }else if(target == this.dataMobil.surat){
+    //     this.dataMobil.surat = null
+    //   }
+    // },
     onUpload() {},
     tambahData(formName, form2, form3) {
       this.$refs[formName].validate((valid) => {
@@ -560,8 +634,8 @@ export default {
   border-radius: 5px;
   gap: 20px;
 }
-.formUpload{
-    border: 1px rgba(0, 0, 0, 0.198) solid;
+.formUpload {
+  border: 1px rgba(0, 0, 0, 0.198) solid;
 }
 .preview {
   width: 250px;
@@ -581,11 +655,11 @@ export default {
   opacity: 0.7;
   color: gray;
 }
-.mobilImage{
+.mobilImage {
   padding: 10px;
 }
-.formUpload button{
-padding: 5px;
+.formUpload button {
+  padding: 5px;
   margin-right: -15px;
   flex: 1;
 }

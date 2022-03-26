@@ -1,6 +1,27 @@
 <template>
   <div class="terjual">
-    <div class="car-grid">
+            <div v-if="result.length > 0" class="result">
+          <h3>Result</h3>
+          <div v-if="result.length > 0" class="car-grid">
+        <div v-for="mobil in result" :key="mobil.dataMobil.plat" class="grid">
+            <router-link :to="'/view-car/' + mobil.id">
+            <div class="date">{{mobil.waktuPenambahan}}</div>
+            <img :src="mobil.image" class="image"><img>
+            <h1 class="car-name">{{mobil.dataMobil.merk}} {{mobil.dataMobil.type}}, {{mobil.dataMobil.tahun}}</h1>
+            <div class="detail-grid">
+                <p class="desc">Transmisi: <br><span>{{mobil.dataMobil.transmisi}}</span></p>
+                <p class="desc">Atas nama: <br><span>{{mobil.dataMobil.atasNama}}</span></p>
+                <div class="button">Detail</div>
+            </div>
+            </router-link>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+      </div>
+
+    <div v-if="mobil.length > 0" class="car-grid">
         <div v-for="mobil in mobil" :key="mobil.dataMobil.plat" class="grid">
             <router-link :to="'/view-car-terjual/' + mobil.id">
             <div class="date">{{mobil.waktuPenambahan}}</div>
@@ -14,6 +35,7 @@
             </router-link>
         </div>
     </div>
+        <h1 style="text-align: center; height: 100%; font-weight: 700; font-size: 50px;" v-else>Data Terjual Kosong</h1>
   </div>
 </template>
 
@@ -22,10 +44,14 @@ import db from "./firebaseInit"
 export default {
     data(){
         return{
+            result: [],
             mobil: []
         }
     },
     beforeMount(){
+        setInterval(() => {
+            this.result = this.mobil.filter((f) => f.dataMobil.merk == this.$store.getters.search)
+        }, 0);
         db.collection('terjual').get()
         .then(querySnapShot => {
             querySnapShot.forEach(doc => {
@@ -71,79 +97,5 @@ export default {
 </script>
 
 <style>
-    .car-grid{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        row-gap: 50px;
-        column-gap: 46px;
-    }
-    .grid{
-        background-color: white;
-        position: relative;
-        padding: 14px 23px;
-        transition: 0.3s;
-    }
-    .grid:hover{
-        transform: scale(1.02);
-    }
-    .grid .car-name{
-        font-size: 23px;
-        font-family: 'Poppins';
-        font-weight: 400;
-        color: black;
-    }
-    .date{
-        color: rgb(104, 104, 104);
-    }
-    .grid .image{
-        width: 100%;
-        margin: 10px 0;
-        height: 200px;
-        background: gray;
-    }
-    .detail-grid{
-        margin-top: 1em;
-        display: grid;
-        justify-content: center;
-        row-gap: 12px;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .detail-grid p{
-        color: rgb(165, 165, 165);
-        font-weight: 300;
-        font-family: 'Poppins';
-        font-size: 17px;
-    }
-    p span{
-        color: black;
-        font-size: 17px;
-        font-weight: 500;
-    }
-    .detail-grid .button{
-        padding: 7px 0;
-        background-color: #35485c;
-        transition: 0.2s;
-        cursor: pointer;
-        text-align: center;
-        grid-area: 3/1/3/3;
-        justify-content: center;
-        border-radius: 5px;
-        font-size: 18px;
-        color: white;
-        letter-spacing:  0.02em;
-    }
-    .grid .button:hover{
-        background-color: rgb(93, 117, 144);
-    }
-    .detail-grid div{
-        display: flex;
-        align-items: center;
-        
-    }
 
-    @media (max-width: 1000px){
-        .car-grid{
-        grid-template-columns: repeat(2, 1fr);
-    }
-    }
 </style>

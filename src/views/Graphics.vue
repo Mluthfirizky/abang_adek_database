@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      test: [{ "date": "03/07", "total": 40199 }, { "date": "03/07", "total": 4019 }, { "total": 4019 }],
+      test: [{ "date": "03/07", "total": 40199 }, { "date": "03/08", "total": 4019 }, { "total": 4019 }],
       arrPositive: [],
       positiveChartColors: {
         borderColor: "#077187",

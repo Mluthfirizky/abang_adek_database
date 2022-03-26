@@ -103,9 +103,12 @@ export default {
 .login {
   display: flex;
   align-items: center;
-  padding: 100px 210px;
+  padding: 6vh 20vw;
   height: 100vh;
   background-color: #333333;
+}
+.login .container{
+  padding: 0 !important;
 }
 .login .button-group{
   margin-top: 50px;
@@ -114,10 +117,9 @@ export default {
   background-image: url('../assets/bg.png');
   background-size: cover;
   background-repeat: no-repeat;
+  height: 100%;
 }
-.login .container{
-  padding: 0 !important;
-}
+ 
 .left div{
   padding: 50px 40px 38px 45px;
   display: flex;
@@ -157,7 +159,7 @@ color: #FFFFFF;
   box-shadow: 0px 15px 30px 8px rgba(0, 0, 0, 0.25);
   display: flex;
   width: 100%;
-  overflow: hidden;
+  overflow: scroll;
   height: 100%;
 }
 .container div{

@@ -27,7 +27,16 @@
                   .replace("noRangka", "No.rangka")
                   .replace("noMesin", "No.mesin")
                   .replace("atasNama", "Atas nama")
-              }}: <span>{{ info }}</span>
+                  .replace("surat", "surat-surat")
+              }}: 
+
+              <span v-if="index != 'surat'">{{ info }}</span>
+              <a target="_" :href="currentData.dataMobil.surat">
+              <el-button class="view-btn" v-if="index == 'surat'" type="primary" plain>View</el-button>
+              </a>
+              <!-- <img class="ktpImage" v-if="index == 'surat' && currentData.dataMobil.surat != null" :src="currentData.dataMobil.surat" alt="">
+              <h3 v-if="index == 'ktp' && currentData.dataMobil.surat == null">Gambar tidak tersedia</h3> -->
+
             </li>
           </ul>
         </div>
@@ -47,7 +56,9 @@
             >
               {{ index.replace("hargaBeli", "Harga beli") }}:
               <span v-if="index != 'ktp'">{{ penjual }}</span>
+              <a target="_" :href="currentData.dataPenjual.ktp">
               <img class="ktpImage" v-if="index == 'ktp' && currentData.dataPenjual.ktp != null" :src="currentData.dataPenjual.ktp" alt="">
+              </a>
               <h3 v-if="index == 'ktp' && currentData.dataPenjual.ktp == null">Gambar tidak tersedia</h3>
             </li>
             <li>
@@ -69,7 +80,9 @@
             >
               {{ index.replace("hargaJual", "Harga jual") }}:
                <span v-if="index != 'ktp'">{{ pembeli }}</span>
+               <a target="_" :href="currentData.dataPembeli.ktp">
               <img class="ktpImage" v-if="index == 'ktp' && currentData.dataPembeli.ktp != null" :src="currentData.dataPembeli.ktp" alt="">
+               </a>
               <h3 v-if="index == 'ktp' && currentData.dataPembeli.ktp == null">Gambar tidak tersedia</h3>
             </li>
             <li>
@@ -286,7 +299,7 @@ export default {
   padding: 20px 40px;
 }
 .mobil-data .info {
-  padding: 120px 0 0px 40px;
+  padding: 120px 0 10px 40px;
   flex: 1;
 }
 .mobil-data .info ul {
@@ -352,7 +365,7 @@ export default {
   position: relative;
   flex: 2;
   background-position: center;
-  height: 550px;
+  height: 567px;
   z-index: 2;
   clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%);
   width: 700.11px;
@@ -380,5 +393,8 @@ export default {
 }
 .button-3 .terjual {
   grid-area: 2 / 1 / 3 / 3;
+}
+.car .view-btn{
+  padding: 10px 30px;
 }
 </style>

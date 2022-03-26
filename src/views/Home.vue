@@ -5,10 +5,9 @@
     <div class="search">
         <div class="search-content">
             <img src="../assets/search.png" alt="">
-            <input type="text" placeholder="Cari nama mobil....">            
+            <input @input="resultChange" v-model="searchValue" type="text" placeholder="Cari nama mobil....">            
         </div>
-
-        <div class="cancel">
+        <div @click="clear" class="cancel">
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
@@ -21,6 +20,7 @@
   </nav>
     <stock v-if="page == false" class="dashboard"/>
     <terjual v-else class="dashboard"/>
+    {{$store.getters.search}}
     <div @click="addBtn" class="add"><i class="fa-solid fa-plus"></i></div>
   </div>
 </template>
@@ -40,10 +40,18 @@ export default {
   },
   data(){
     return{
+      searchValue: this.$store.getters.search,
       page: false
     }
   },
   methods: {
+    clear(){
+      this.$store.commit('changeValue', "")
+      this.searchValue = this.$store.getters.search
+    },
+    resultChange(){
+      this.$store.commit('changeValue', this.searchValue)
+    },
     addBtn(){
       if(!this.page){
         this.$router.push('/new')
