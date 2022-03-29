@@ -448,7 +448,7 @@ export default {
       this.image = null;
     },
     fileSelected(event) {
-      if (event.target.files[0].size < 1040000) {
+      if (event.target.files[0].size < 346666) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
           this.image = fileReader.result;
@@ -463,7 +463,7 @@ export default {
       }
     },
     ktpImagePenjual(event) {
-      if (event.target.files[0].size < 1040000) {
+      if (event.target.files[0].size < 346666) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
           this.dataPenjual.ktp = fileReader.result;
@@ -478,7 +478,7 @@ export default {
       }
     },
     ktpImagePembeli(event) {
-      if (event.target.files[0].size < 1040000) {
+      if (event.target.files[0].size < 346666) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
           this.dataPembeli.ktp = fileReader.result;
@@ -493,7 +493,7 @@ export default {
       }
     },
     suratImage(event) {
-      if (event.target.files[0].size < 1040000) {
+      if (event.target.files[0].size < 346666) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
           this.dataMobil.surat = fileReader.result;

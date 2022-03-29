@@ -381,7 +381,7 @@ export default {
       this.image = null;
     },
     ktpImagePenjual(event) {
-      if (event.target.files[0].size < 1040000) {
+      if (event.target.files[0].size < 346666) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
           this.currentData.dataPenjual.ktp = fileReader.result;
@@ -396,7 +396,7 @@ export default {
       }
     },
     ktpImagePembeli(event) {
-      if (event.target.files[0].size < 1040000) {
+      if (event.target.files[0].size < 346666) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
           this.currentData.dataPembeli.ktp = fileReader.result;
@@ -411,7 +411,7 @@ export default {
       }
     },
     imageSurat(event) {
-      if (event.target.files[0].size < 1040000) {
+      if (event.target.files[0].size < 346666) {
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () => {
           this.currentData.dataMobil.surat = fileReader.result;
@@ -426,6 +426,7 @@ export default {
       }
     },
     fileSelected(event) {
+      if (event.target.files[0].size < 346666) {
       const fileReader = new FileReader();
       fileReader.addEventListener("load", () => {
         this.currentData.image = fileReader.result;
@@ -433,6 +434,12 @@ export default {
       fileReader.readAsDataURL(event.target.files[0]);
       //  this.selectedImage = URL.createObjectURL(event.target.files[0])
       this.link = event;
+      } else {
+        this.$message({
+          message: "Ukuran gambar terlalu besar!",
+          type: "error",
+        });
+      }
     },
     cancel(mainProp, childProp, child2) {
       // this[test] = null // isi Barang
