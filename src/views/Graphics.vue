@@ -1,14 +1,14 @@
 <template>
-  <div class="container">
-        <h2 class="text-center">Positive</h2>
+  <div class="graph">
+      <h2 style="visibility: hidden;" class="text-center">.</h2>
       <div class="row mt-5" v-if="test.length > 0">
       <div class="col">
-        <h2 class="text-center">Positive</h2>
+        <h2 class="text-center">2022</h2>
         <line-chart
           :chartData="test"
           :options="chartOptions"
           :chartColors="positiveChartColors"
-          label="Positive"
+          label="Laba"
         />
       </div>
     </div>
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      test: [{ "date": "03/07", "total": 40199 }, { "date": "03/08", "total": 4019 }, { "total": 4019 }],
+      test: [{ "date": "03/07", "total": 10000 }, { "date": "03/08", "total": 200000 }, { "total": 400000 }],
       arrPositive: [],
       positiveChartColors: {
         borderColor: "#077187",
@@ -43,4 +43,7 @@ export default {
 </script>
 
 <style>
+.graph{
+  padding: 0 100px;
+}
 </style>

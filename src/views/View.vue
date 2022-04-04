@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-      <view-car :collection="'mobil'"></view-car>
+      <view-car :edit="'edit'" :collection="'mobil'"></view-car>
   </div>
 </template>
 

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import EditCar from '../components/EditCar.vue'
+import EditTerjual from '../components/EditTerjual.vue'
 import ViewCar from '../views/View.vue'
 import ViewCarTerjual from '../views/ViewCar.vue'
 import NewStock from '../views/AddStock.vue'
@@ -24,6 +25,11 @@ const routes = [
     path: '/edit/:plat/',
     name: 'EditCar',
     component: EditCar
+  },
+  {
+    path: '/edit-terjual/:plat/',
+    name: 'EditTerjual',
+    component: EditTerjual
   },
   {
     path: '/view-car/:plat/',

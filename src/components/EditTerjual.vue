@@ -503,7 +503,7 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    db.collection("mobil")
+    db.collection("terjual")
       .doc(to.params.plat)
       .get()
       .then((querySnapShot) => {

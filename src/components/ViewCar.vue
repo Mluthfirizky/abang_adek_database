@@ -157,6 +157,9 @@ export default {
   props: {
     collection: {
       type: String
+    },
+    edit: {
+      type: String
     }
   },
   beforeMount() {
@@ -250,7 +253,7 @@ export default {
         });
     },
     editData() {
-      this.$router.push("/edit/" + this.$route.params.plat);
+      this.$router.push(`/${this.edit}/` + this.$route.params.plat);
     },
     imageViewer() {
       return {
