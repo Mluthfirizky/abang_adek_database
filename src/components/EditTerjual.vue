@@ -462,7 +462,7 @@ export default {
                 console.log(this.$refs);
                 if (valid) {
                   try{
-                    db.collection("mobil")
+                    db.collection("terjual")
                     .doc(this.$route.params.plat)
                     .update(
                           'dataMobil', this.currentData.dataMobil,
